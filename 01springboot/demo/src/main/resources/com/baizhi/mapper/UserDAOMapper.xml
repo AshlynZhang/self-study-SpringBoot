@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace：接口类名-->
+<mapper namespace="com.baizhi.dao.UserDAO">
+
+
+    <!--delete-->
+    <delete id="delete" parameterType="Integer">
+        delete from t_user where id=#{id}
+    </delete>
+
+    <!--update-->
+    <update id="update" parameterType="User">
+        update t_user
+        set
+          name=#{name},
+          age=#{age},
+          salary=#{salary}
+          where id=#{id}
+    </update>
+
+    <!--findById-->
+    <select id="findById" parameterType="Integer" resultType="User">
+        select id,name,age,salary from t_user where id = #{id}
+    </select>
+
+    <!--save 数据列多时推荐用数据库自动生成(useGeneratedKeys="true")并返回主键的值(keyProperty="id" 用传过来的User参数对象中属性名为id的属性来保存主键值)-->
+    <!--/*id是自动生成*/
+        /*insert into t_user(name,age,salary) values (#{name},#{age},#{salary})*/-->
+    <insert id="save" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+
+        insert into t_user values (#{id},#{name},#{age},#{salary})
+    </insert>
+
+    <!--findAll id:方法名 resultType：返回值类型-->
+    <select id="findAll" resultType="User">
+        select id,name,age,salary from t_user
+    </select>
+
+</mapper>
